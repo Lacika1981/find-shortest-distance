@@ -50,14 +50,17 @@ function findClosest(string) {
 
       if (lastDistance > calculation) {
         lastDistance = calculation;
+        
         lastDistanceElems.elemOne = [
           pointsObject['x'][i],
           pointsObject['y'][i]
         ];
+        
         lastDistanceElems.elemTwo = [
           pointsObject['x'][j],
           pointsObject['y'][j]
         ];
+        
         lastDistanceElems.indexes = { elemOne: i, elemTwo: j };
       }
     }
