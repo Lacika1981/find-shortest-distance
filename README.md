@@ -1,6 +1,7 @@
 # find-shortest-distance
 
-Please write an application which takes a string as input. The string contains a comma
+Please write an application which takes a string as input.
+The string contains a comma
 separated list of numbers. Each pair of numbers is the (x, y) coordinates of a mobile phone
 mast.
 Example Input
