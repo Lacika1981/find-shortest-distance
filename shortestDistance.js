@@ -6,18 +6,16 @@
  *
  */
 function stringToArray(input) {
-  const points = {
-    x: [],
-    y: []
-  };
+  const points = [];
   try {
-    input.split(',').forEach((elem, i) => {
-      if (i % 2 === 0) {
-        points.x.push(Number(elem));
-      } else {
-        points.y.push(Number(elem));
-      }
-    });
+    const elemsFromString = input.split(',');
+
+    for (let i = 0; i < elemsFromString.length; i += 2) {
+      points.push({
+        x: Number(elemsFromString[i]),
+        y: Number(elemsFromString[i + 1])
+      });
+    }
   } catch (e) {
     if (e instanceof TypeError) {
       console.log({
@@ -51,34 +49,29 @@ function findClosest(string) {
     distance: null
   };
 
-  //object to hold 'x' and 'y' points array
-  const pointsObject = stringToArray(string);
+  //array to hold objects containing 'x' and 'y' points
+  const pointsArray = stringToArray(string);
 
-  for (let i = 0; i < pointsObject['x'].length; i++) {
-    for (let j = i + 1; j < pointsObject['x'].length; j++) {
+  for (let i = 0; i < pointsArray.length; i++) {
+    for (let j = i + 1; j < pointsArray.length; j++) {
       let calculation =
-        Math.pow(pointsObject['x'][i] - pointsObject['x'][j], 2) +
-        Math.pow(pointsObject['y'][i] - pointsObject['y'][j], 2);
+        Math.pow(pointsArray[i]['x'] - pointsArray[j]['x'], 2) +
+        Math.pow(pointsArray[i]['y'] - pointsArray[j]['y'], 2);
 
       if (!lastDistance) lastDistance = calculation;
 
       if (lastDistance > calculation) {
         lastDistance = calculation;
 
-        lastDistanceElems.elemOne = [
-          pointsObject['x'][i],
-          pointsObject['y'][i]
-        ];
+        lastDistanceElems.elemOne = [pointsArray[i]['x'], pointsArray[i]['y']];
 
-        lastDistanceElems.elemTwo = [
-          pointsObject['x'][j],
-          pointsObject['y'][j]
-        ];
+        lastDistanceElems.elemTwo = [pointsArray[j]['x'], pointsArray[j]['y']];
 
         lastDistanceElems.indexes = { elemOne: i, elemTwo: j };
       }
     }
   }
+
   return { distance: Math.sqrt(lastDistance), elems: lastDistanceElems };
 }
 
