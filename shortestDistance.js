@@ -1,5 +1,6 @@
 /**
  *
+ * @description - helper function
  * @function stringToArray - creates arrays for 'x' and 'y' coordinates
  * @param input string
  *
@@ -9,13 +10,25 @@ function stringToArray(input) {
     x: [],
     y: []
   };
-  input.split(',').forEach((elem, i) => {
-    if (i % 2 === 0) {
-      points.x.push(Number(elem));
+  try {
+    input.split(',').forEach((elem, i) => {
+      if (i % 2 === 0) {
+        points.x.push(Number(elem));
+      } else {
+        points.y.push(Number(elem));
+      }
+    });
+  } catch (e) {
+    if (e instanceof TypeError) {
+      console.log({
+        expected: 'String',
+        gotType: typeof input,
+        message: e.message
+      });
     } else {
-      points.y.push(Number(elem));
+      console.log(e);
     }
-  });
+  }
   return points;
 }
 
@@ -34,7 +47,8 @@ function findClosest(string) {
   const lastDistanceElems = {
     elemOne: null,
     elemTwo: null,
-    indexes: null
+    indexes: null,
+    distance: null
   };
 
   //object to hold 'x' and 'y' points array
@@ -50,24 +64,24 @@ function findClosest(string) {
 
       if (lastDistance > calculation) {
         lastDistance = calculation;
-        
+
         lastDistanceElems.elemOne = [
           pointsObject['x'][i],
           pointsObject['y'][i]
         ];
-        
+
         lastDistanceElems.elemTwo = [
           pointsObject['x'][j],
           pointsObject['y'][j]
         ];
-        
+
         lastDistanceElems.indexes = { elemOne: i, elemTwo: j };
       }
     }
   }
-  return Math.sqrt(lastDistance), lastDistanceElems;
+  return { distance: Math.sqrt(lastDistance), elems: lastDistanceElems };
 }
 
-const closest = findClosest('50,50, 54,79, 90,100, 54,60, 10,12, 1,1');
+const closest = findClosest('50, 50, 54, 79, 90, 100, 54, 60, 10, 12, 1, 1');
 
 console.log(closest);
