@@ -1,0 +1,14 @@
+{
+  "name": "shortest distance",
+  "version": "1.0.0",
+  "description": "find shortest distance between two coordinates in an array",
+  "main": "test/test.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Laszlo Varga",
+  "license": "MIT",
+  "dependencies": {
+    "mocha": "^7.1.0"
+  }
+}
